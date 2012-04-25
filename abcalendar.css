@@ -1,22 +1,56 @@
 .abcalendar {
-	background-color: #ccc;
+	background-color: #eee;
 	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+
+.abcalendar * {
+	margin: 0;
+	padding: 0;
 }
 
 .abcalendar .header {
-	background-color: white;
+	background-color: #c65806;
+	background-image: -webkit-linear-gradient(#c97000, #903000);
+	color: white;
+	font-family: Segoe UI, Sans-serif;
+	font-size: 15px;
+	line-height: 30px;
 	text-align: center;
+	text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
 }
 
-.abcalendar .header::after {
+.abcalendar .days span {
+	color: #666;
+	display: inline-block;
+	font-family: Arial, Helvetica, Sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	line-height: 17px;
+	text-align: center;
+	text-transform: uppercase;
+	width: 26px;
+}
+
+.abcalendar .days {
+	background-color: white;
+	border-left: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	position: relative;
+}
+
+/*.abcalendar .days::after {
 	background-image: url('triangle.png');
 	background-repeat: repeat-x;
 	content: '';
 	display: block;
 	height: 9px;
 	position: absolute;
+	left: 0;
+	top: 17px;
 	width: 100%;
-}
+}*/
 
 .abcalendar .year {
 	width: 5em;
@@ -26,20 +60,22 @@
 	border-collapse: collapse;
 }
 
-.abcalendar th {
-	font-size: 13px;
-}
-
 .abcalendar td {
-	border: 1px solid black;
+	border: 1px solid #ccc;
 }
 
 .abcalendar .date {
+	color: #666;
 	display: block;
-	height: 25px;
+	font-family: Arial, Helvetica, Sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	line-height: 25px;
+	text-align: center;
 	width: 25px;
 }
 
-.abcalendar .date.selected {
-	
+.abcalendar td.selected {
+	background-color: rgba(255, 128, 0, 0.5);
+	border: 1px solid #f30;
 }
