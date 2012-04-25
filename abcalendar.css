@@ -1,0 +1,45 @@
+.abcalendar {
+	background-color: #ccc;
+	display: inline-block;
+}
+
+.abcalendar .header {
+	background-color: white;
+	text-align: center;
+}
+
+.abcalendar .header::after {
+	background-image: url('triangle.png');
+	background-repeat: repeat-x;
+	content: '';
+	display: block;
+	height: 9px;
+	position: absolute;
+	width: 100%;
+}
+
+.abcalendar .year {
+	width: 5em;
+}
+
+.abcalendar table {
+	border-collapse: collapse;
+}
+
+.abcalendar th {
+	font-size: 13px;
+}
+
+.abcalendar td {
+	border: 1px solid black;
+}
+
+.abcalendar .date {
+	display: block;
+	height: 25px;
+	width: 25px;
+}
+
+.abcalendar .date.selected {
+	
+}
