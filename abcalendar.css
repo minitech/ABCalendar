@@ -10,6 +10,11 @@
 	padding: 0;
 }
 
+.abcalendar .days {
+	background-color: white;
+	position: relative;
+}
+
 .abcalendar .header {
 	background-color: #c65806;
 	background-image: -webkit-linear-gradient(#c97000, #903000);
@@ -30,14 +35,11 @@
 	line-height: 17px;
 	text-align: center;
 	text-transform: uppercase;
-	width: 26px;
+	width: 28px;
 }
 
-.abcalendar .days {
-	background-color: white;
-	border-left: 1px solid #ccc;
-	border-right: 1px solid #ccc;
-	position: relative;
+.abcalendar .days .selected {
+	color: #e70;
 }
 
 /*.abcalendar .days::after {
@@ -72,10 +74,19 @@
 	font-weight: bold;
 	line-height: 25px;
 	text-align: center;
-	width: 25px;
+	text-decoration: none;
+	width: 27px;
 }
 
 .abcalendar td.selected {
 	background-color: rgba(255, 128, 0, 0.5);
 	border: 1px solid #f30;
+}
+
+.abcalendar .beside-selected {
+	border-right: 1px solid #f30;
+}
+
+.abcalendar .above-selected {
+	border-bottom: 1px solid #f30;
 }
