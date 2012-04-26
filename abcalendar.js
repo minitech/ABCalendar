@@ -68,8 +68,10 @@
 		var yearPicker = firstOfClass(element.getElementsByTagName('input'), 'year');
 		
 		var changeListener = function() {
+			var current = that.getDate();
+		
 			if(/^\d+$/.test(yearPicker.value) && monthPicker.selectedIndex > -1) {
-				that.build(+yearPicker.value, monthPicker.selectedIndex + 1);
+				that.build(+yearPicker.value, monthPicker.selectedIndex + 1, current && current.getDate());
 			}
 		};
 		
@@ -83,6 +85,9 @@
 			yearPicker.attachEvent('onchange', changeListener);
 			yearPicker.attachEvent('onkeyup', changeListener);
 		}
+		
+		this.monthPicker = monthPicker;
+		this.yearPicker = yearPicker;
 	}
 
 	function ABCalendar(element) {
@@ -213,6 +218,14 @@
 		if(selectedCell) {
 			this.makeSelected(selectedCell);
 		}
+	};
+	
+	ABCalendar.prototype.getDate = function() {
+		if(this.selected && /^\d+$/.test(this.yearPicker.value)) {
+			return new Date(+this.yearPicker.value, this.monthPicker.selectedIndex, +this.selected.firstChild.firstChild.nodeValue);
+		}
+		
+		return null;
 	};
 	
 	window.ABCalendar = ABCalendar;
