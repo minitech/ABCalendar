@@ -83,9 +83,17 @@
 	width: 27px;
 }
 
+.abcalendar .date:hover {
+	background-color: #f2e2a6;
+}
+
 .abcalendar td.selected {
 	background-color: #f6b777;
 	border: 1px solid #f30;
+}
+
+.abcalendar .selected .date {
+	background-color: transparent;
 }
 
 .abcalendar .beside-selected {

@@ -60,6 +60,27 @@
 		
 		return monthDays[month - 1];
 	}
+	
+	function bindHandlers(element) {
+		var that = this;
+	
+		var monthPicker = firstOfClass(element.getElementsByTagName('select'), 'month');
+		var yearPicker = firstOfClass(element.getElementsByTagName('input'), 'year');
+		
+		var changeListener = function() {
+			if(/^\d+$/.test(yearPicker.value) && monthPicker.selectedIndex > -1) {
+				that.build(+yearPicker.value, monthPicker.selectedIndex + 1);
+			}
+		};
+		
+		if(monthPicker.addEventListener) {
+			monthPicker.addEventListener('change', changeListener, false);
+			yearPicker.addEventListener('change', changeListener, false);
+		} else if(monthPicker.attachEvent) {
+			monthPicker.attachEvent('onchange', changeListener);
+			yearPicker.attachEvent('onchange', changeListener);
+		}
+	}
 
 	function ABCalendar(element) {
 		var that = this;
@@ -75,6 +96,8 @@
 				e.preventDefault();
 			}
 		};
+		
+		bindHandlers.call(this, element);
 		
 		if(element.addEventListener) {
 			element.addEventListener('click', clickHandler, false);
