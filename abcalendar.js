@@ -62,37 +62,15 @@
 	}
 
 	function ABCalendar(element) {
-		var selected = firstOfClass(element.getElementsByTagName('td'), 'selected');
-		var days = firstOfClass(element.getElementsByTagName('div'), 'days').getElementsByTagName('span');
-		
+		var that = this;
+	
+		this.selected = firstOfClass(element.getElementsByTagName('td'), 'selected');
+		this.days = firstOfClass(element.getElementsByTagName('div'), 'days').getElementsByTagName('span');
 		this.dates = element.getElementsByTagName('table')[0];
 
 		var clickHandler = function(e) {
 			if(e.target.nodeName.toLowerCase() === 'a') {
-				if(selected) {
-					if(selected.previousElementSibling) {
-						removeClass(selected.previousElementSibling, 'beside-selected');
-					}
-					
-					if(selected.parentNode.previousElementSibling) {
-						removeClass(selected.parentNode.previousElementSibling.children[indexOf(selected.parentNode.children, selected)], 'above-selected');
-					}
-					
-					removeClass(days[indexOf(selected.parentNode.children, selected)], 'selected');
-					removeClass(selected, 'selected');
-				}
-				
-				selected = e.target.parentNode;
-				addClass(selected, 'selected');
-				addClass(days[indexOf(selected.parentNode.children, selected)], 'selected');
-				
-				if(selected.previousElementSibling) {
-					addClass(selected.previousElementSibling, 'beside-selected');
-				}
-				
-				if(selected.parentNode.previousElementSibling) {
-					addClass(selected.parentNode.previousElementSibling.children[indexOf(selected.parentNode.children, selected)], 'above-selected');
-				}
+				that.makeSelected(e.target.parentNode);
 				
 				e.preventDefault();
 			}
@@ -111,14 +89,47 @@
 			});
 		}
 	}
+	
+	ABCalendar.prototype.makeSelected = function(cell) {
+		var selected = this.selected;
+		var days = this.days;
+	
+		if(selected) {
+			if(selected.previousElementSibling) {
+				removeClass(selected.previousElementSibling, 'beside-selected');
+			}
+			
+			if(selected.parentNode.previousElementSibling) {
+				removeClass(selected.parentNode.previousElementSibling.children[indexOf(selected.parentNode.children, selected)], 'above-selected');
+			}
+			
+			removeClass(days[indexOf(selected.parentNode.children, selected)], 'selected');
+			removeClass(selected, 'selected');
+		}
+		
+		selected = cell;
+		addClass(selected, 'selected');
+		addClass(days[indexOf(selected.parentNode.children, selected)], 'selected');
+		
+		if(selected.previousElementSibling) {
+			addClass(selected.previousElementSibling, 'beside-selected');
+		}
+		
+		if(selected.parentNode.previousElementSibling) {
+			addClass(selected.parentNode.previousElementSibling.children[indexOf(selected.parentNode.children, selected)], 'above-selected');
+		}
+		
+		this.selected = selected;
+	};
 
-	ABCalendar.prototype.build = function(year, month) {
+	ABCalendar.prototype.build = function(year, month, selected) {
 		// Some utilities:
 		var currentRow = document.createElement('tr');
 		var dates = this.dates;
 		var i;
+		var selectedCell = null;
 		
-		var addCell = function(content) {
+		var addCell = function(content, selected) {
 			var cell = document.createElement('td');
 			
 			if(content) {
@@ -126,6 +137,10 @@
 			}
 			
 			currentRow.appendChild(cell);
+			
+			if(selected) {
+				selectedCell = cell;
+			}
 			
 			if(currentRow.children.length === 7) {
 				dates.tBodies[0].appendChild(currentRow);
@@ -160,12 +175,17 @@
 			content.className = 'date';
 			content.appendChild(document.createTextNode(i.toString()));
 			
-			addCell(content);
+			addCell(content, i === selected);
 		}
 		
-		// Finally, fill the empty space until the row is full:
+		// Fill the empty space until the row is full:
 		while(currentRow.children.length > 0) {
 			addCell();
+		}
+		
+		// And finally, if there's a preselected cell, select it:
+		if(selectedCell) {
+			this.makeSelected(selectedCell);
 		}
 	};
 	
