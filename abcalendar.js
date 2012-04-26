@@ -76,9 +76,12 @@
 		if(monthPicker.addEventListener) {
 			monthPicker.addEventListener('change', changeListener, false);
 			yearPicker.addEventListener('change', changeListener, false);
+			yearPicker.addEventListener('input', changeListener, false);
+			yearPicker.addEventListener('keyup', changeListener, false);
 		} else if(monthPicker.attachEvent) {
 			monthPicker.attachEvent('onchange', changeListener);
 			yearPicker.attachEvent('onchange', changeListener);
+			yearPicker.attachEvent('onkeyup', changeListener);
 		}
 	}
 
