@@ -19,6 +19,10 @@
 .abcalendar .header {
 	background-color: #c65806;
 	background-image: -webkit-linear-gradient(#c97000, #903000);
+	background-image:    -moz-linear-gradient(#c97000, #903000);
+	background-image:     -ms-linear-gradient(#c97000, #903000);
+	background-image:      -o-linear-gradient(#c97000, #903000);
+	background-image:         linear-gradient(#c97000, #903000);
 	color: white;
 	font-family: Segoe UI, Sans-serif;
 	font-size: 15px;
@@ -42,18 +46,6 @@
 .abcalendar .days .selected {
 	color: #e70;
 }
-
-/*.abcalendar .days::after {
-	background-image: url('triangle.png');
-	background-repeat: repeat-x;
-	content: '';
-	display: block;
-	height: 9px;
-	position: absolute;
-	left: 0;
-	top: 17px;
-	width: 100%;
-}*/
 
 .abcalendar .year {
 	width: 5em;
